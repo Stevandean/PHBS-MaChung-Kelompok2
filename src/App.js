@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename="/PHBS-MaChung-Kelompok2">
         <Routes>
           <Route path="/" element={<HomePage />} />
         </Routes>
