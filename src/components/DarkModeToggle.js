@@ -29,8 +29,11 @@ const DarkModeToggle = () => {
       onClick={toggleDarkMode}
       className="p-2 rounded-full transition-all duration-200 hover:bg-opacity-20 hover:bg-gray-500"
       style={{
-        background: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
-        border: '1px solid var(--border-light)',
+        background: isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.05)",
+        border: "1px solid var(--border-light)",
+        borderRadius: "100%",   // <— ini yang bikin lingkaran
+        width: "40px",
+        height: "40px",
       }}
       aria-label="Toggle dark mode"
     >

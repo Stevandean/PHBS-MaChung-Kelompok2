@@ -377,7 +377,7 @@ const HomePage = () => {
             color: 'var(--text-muted)',
             fontSize: '0.875rem'
           }}>
-            <p>© 2024 Universitas Ma Chung. Program Kampanye PHBS - Healthy Campus, Happy Students!</p>
+            <p>Crafted with ❤️ by Penn © 2024 Universitas Ma Chung. Program Kampanye PHBS - Healthy Campus, Happy Students!</p>
           </div>
         </div>
       </footer>
