@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Stevandean/phbs/static/css/main.01937953.css",
+    "main.js": "/Stevandean/phbs/static/js/main.135b0177.js",
+    "static/js/453.f7773468.chunk.js": "/Stevandean/phbs/static/js/453.f7773468.chunk.js",
+    "index.html": "/Stevandean/phbs/index.html",
+    "main.01937953.css.map": "/Stevandean/phbs/static/css/main.01937953.css.map",
+    "main.135b0177.js.map": "/Stevandean/phbs/static/js/main.135b0177.js.map",
+    "453.f7773468.chunk.js.map": "/Stevandean/phbs/static/js/453.f7773468.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.01937953.css",
+    "static/js/main.135b0177.js"
+  ]
+}
