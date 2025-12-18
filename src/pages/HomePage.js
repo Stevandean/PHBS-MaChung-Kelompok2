@@ -52,6 +52,26 @@ const HomePage = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const cards = document.querySelectorAll(".manfaat-card");
+
+    const revealOnScroll = () => {
+      const trigger = window.innerHeight * 0.85;
+
+      cards.forEach((card) => {
+        const top = card.getBoundingClientRect().top;
+        if (top < trigger) {
+          card.classList.add("reveal");
+        }
+      });
+    };
+
+    window.addEventListener("scroll", revealOnScroll);
+    revealOnScroll();
+
+    return () => window.removeEventListener("scroll", revealOnScroll);
+  }, []);
+
   const phbsTips = [
     {
       icon: Droplets,
@@ -86,10 +106,10 @@ const HomePage = () => {
   ];
 
   const galleryIcons = [
-    { icon: Heart, label: 'Hidup Sehat' },
-    { icon: Shield, label: 'Tubuh Terlindungi' },
-    { icon: Users, label: 'Komunitas Peduli' },
-    { icon: Leaf, label: 'Lingkungan Bersih' }
+    { icon: Heart, label: "Lingkungan Lebih Bersih", desc: "Mendorong terciptanya suasana kampus yang nyaman, rapi, dan sehat bagi seluruh civitas." },
+    { icon: Shield, label: "Kesehatan Mahasiswa Meningkat", desc: "Membantu mengurangi risiko penyakit melalui perilaku hidup bersih dan kebiasaan sehat." },
+    { icon: Users, label: "Produktivitas Belajar", desc: "Kondisi tubuh dan lingkungan yang sehat berdampak langsung pada fokus dan motivasi belajar." },
+    { icon: Leaf, label: "Kebiasaan Positif", desc: "Membangun gaya hidup sehat yang berkelanjutan hingga kehidupan sehari-hari di luar kampus." },
   ];
 
   return (
@@ -122,14 +142,21 @@ const HomePage = () => {
             Mari wujudkan lingkungan kampus yang bersih, sehat, dan nyaman untuk kita semua.
             Kampanye PHBS untuk mahasiswa Universitas Ma Chung.
           </p>
-          <button className="btn-primary">
+          <button 
+            className="btn-primary"
+            onClick={() => {
+              document.getElementById("phbs-tips")?.scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
+          >
             Mulai Hidup Sehat
           </button>
         </div>
       </section>
 
       {/* About PHBS Section */}
-      <section className="section-global pad-2xl" style={{ background: 'var(--bg-section)' }}>
+      <section id='abaout-phbs' className="section-global pad-2xl" style={{ background: 'var(--bg-section)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
             <h2 className="heading-2" style={{ marginBottom: '1.5rem' }}>
@@ -169,7 +196,7 @@ const HomePage = () => {
       </section>
 
       {/* 6 Tips PHBS Section */}
-      <section className="section-global pad-2xl">
+      <section className="section-global pad-2xl" id='phbs-tips'>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 className="heading-2" style={{ marginBottom: '1rem' }}>
@@ -216,44 +243,70 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Gallery Section */}
+      {/* Manfaat Section */}
       <section className="section-global pad-2xl" style={{ background: 'var(--bg-section)' }}>
         <div className="container">
+
+          {/* Header */}
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 className="heading-2" style={{ marginBottom: '1rem' }}>
               Manfaat PHBS Kampus
             </h2>
             <p className="body-medium" style={{ color: 'var(--text-secondary)' }}>
-              Dampak positif dari penerapan PHBS di lingkungan kampus
+              Dampak positif yang dirasakan ketika civitas kampus menerapkan pola hidup bersih dan sehat.
             </p>
           </div>
-          
-          <div className="ai-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
+
+          {/* Grid */}
+          <div 
+            className="manfaat-grid" 
+            style={{
+              display: 'grid',
+              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))'
+            }}
+          >
             {galleryIcons.map((item, index) => {
               const Icon = item.icon;
               return (
                 <div 
                   key={index}
-                  className="product-card"
-                  style={{ 
-                    textAlign: 'center',
-                    padding: '3rem 2rem'
+                  className="manfaat-card"
+                  style={{
+                    padding: '2rem',
+                    borderRadius: '20px',
+                    background: 'var(--card-bg)',
+                    border: '1px solid var(--border-light)',
+                    boxShadow: '0 10px 20px rgba(0,0,0,0.05)',
+                    opacity: 0,
+                    transform: 'translateY(20px)',
+                    transition: 'all 0.7s ease',
                   }}
                 >
+                  {/* Icon */}
                   <div style={{
-                    width: '80px',
-                    height: '80px',
+                    width: '85px',
+                    height: '85px',
                     borderRadius: '50%',
                     background: 'var(--gradient-button)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    margin: '0 auto 1.5rem',
-                    transform: `scale(${1 + Math.sin(scrollY * 0.005 + index) * 0.05})`
+                    marginBottom: '1.5rem',
+                    animation: `floatIcon 3s ease-in-out infinite`,
                   }}>
-                    <Icon className="w-10 h-10" style={{ color: 'white' }} />
+                    <Icon className="w-10 h-10" style={{ color: 'white', fontSize: '32px' }} />
                   </div>
-                  <h3 className="heading-3" style={{ fontSize: '1.25rem' }}>{item.label}</h3>
+
+                  {/* Title */}
+                  <h3 className="heading-3" style={{ marginBottom: '0.5rem' }}>
+                    {item.label}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="body-small" style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                    {item.desc}
+                  </p>
                 </div>
               );
             })}
@@ -280,15 +333,33 @@ const HomePage = () => {
               Bergabunglah dalam kampanye PHBS dan jadilah bagian dari perubahan untuk kampus yang lebih sehat.
             </p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button className="btn-primary">Komitmen Hidup Sehat</button>
-              <button className="btn-secondary">Pelajari Lebih Lanjut</button>
+              <button 
+                className="btn-primary"
+                onClick={() => {
+                  document.getElementById("phbs-tips")?.scrollIntoView({
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                Komitmen Hidup Sehat
+              </button>
+              <button 
+                className="btn-secondary"
+                onClick={() => {
+                  document.getElementById("abaout-phbs")?.scrollIntoView({
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                Pelajari Lebih Lanjut
+                </button>
             </div>
           </div>
         </div>
       </section>
 
       {/* ========================= TEAM SECTION ========================= */}
-      <section className="section-global" id="team-section">
+      <section className="section-global pad-2xl" style={{background: 'var(--bg-section)'}} id="team-section">
         <div className="container">
 
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
@@ -300,12 +371,12 @@ const HomePage = () => {
 
           <div className="team-grid">
             {[
-              { name: "Nama Anggota 1", nim: "NIM 1", img: "member1.jpg" },
-              { name: "Nama Anggota 2", nim: "NIM 2", img: "member1.jpg" },
-              { name: "Nama Anggota 3", nim: "NIM 3", img: "member1.jpg" },
-              { name: "Nama Anggota 4", nim: "NIM 4", img: "member1.jpg" },
-              { name: "Nama Anggota 5", nim: "NIM 5", img: "member1.jpg" },
-              { name: "Nama Anggota 6", nim: "NIM 6", img: "member1.jpg" },
+              { name: "Nadia Salsabilah Irawan", nim: "612310039", img: "salsa.png" },
+              { name: "Naya Fitrah Pitaloka", nim: "612310041", img: "naya.png" },
+              { name: "Ni Kadek Diniari", nim: "612310042", img: "dini.png" },
+              { name: "Shafa Tuffahati", nim: "612310053", img: "shafa.png" },
+              { name: "Sisilia Intan Maulia Ramadani", nim: "612310054", img: "sisil.png" },
+              { name: "Yasinta Alvarizhi", nim: "612310061", img: "yasinta.png" },
             ].map((m, i) => (
               <div
                 key={i}
@@ -377,7 +448,18 @@ const HomePage = () => {
             color: 'var(--text-muted)',
             fontSize: '0.875rem'
           }}>
-            <p>Crafted with ❤️ by Penn © 2024 Universitas Ma Chung. Program Kampanye PHBS - Healthy Campus, Happy Students!</p>
+            <p>
+            Crafted with ❤️ by{" "}
+              <a
+                href="https://github.com/username-kamu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="github-link"
+              >
+                Pennnn
+              </a>{" "}
+            © 2025 Universitas Ma Chung. Program Kampanye PHBS - Healthy Campus, Happy Students!
+          </p>
           </div>
         </div>
       </footer>
