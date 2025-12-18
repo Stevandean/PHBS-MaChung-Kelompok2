@@ -451,7 +451,7 @@ const HomePage = () => {
             <p>
             Crafted with ❤️ by{" "}
               <a
-                href="https://github.com/username-kamu"
+                href="https://github.com/Stevandean"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="github-link"
